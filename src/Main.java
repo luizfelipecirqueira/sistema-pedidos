@@ -3,7 +3,9 @@ import java.math.BigDecimal;
 import model.Pedido;
 import notification.factory.EmailNotificadorFactory;
 import notification.factory.NotificadorFactory;
+import notification.factory.SmsNotificadorFactory;
 import payment.GatewayLegadoAdapter;
+import payment.PagamentoBoleto;
 import payment.PagamentoPix;
 import payment.PagamentoStrategy;
 import repository.PedidoRepository;
@@ -28,10 +30,10 @@ public class Main {
         );
 
         ValidadorPedido validador = new ValidadorPedido();
-        PagamentoStrategy pagamento = new PagamentoPix();
+        PagamentoStrategy pagamento = new PagamentoBoleto();
         PedidoRepository repository = new PedidoRepositoryMemoria();
         NotificadorFactory notificadorFactory =
-            new EmailNotificadorFactory();
+            new SmsNotificadorFactory();
 
         PedidoService service = new PedidoService(
             validador,
@@ -59,7 +61,7 @@ public class Main {
         PedidoRepository repository =
             new PedidoRepositoryMemoria();
         NotificadorFactory notificadorFactory =
-            new EmailNotificadorFactory();
+            new SmsNotificadorFactory();
 
         PedidoService service = new PedidoService(
             validador,
